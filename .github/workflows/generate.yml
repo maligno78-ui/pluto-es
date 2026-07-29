@@ -1,0 +1,38 @@
+name: Generar M3U Pluto TV España
+
+on:
+  schedule:
+    - cron: "0 10,22 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install requests
+
+      - name: Generar M3U
+        run: python pluto_es.py
+
+      - name: Subir M3U al repo
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pluto_es.m3u
+          git diff --staged --quiet || git commit -m "M3U actualizado $(date +%Y-%m-%d_%H:%M)"
+          git push

@@ -16,3 +16,6 @@ Añade esta URL a tu reproductor IPTV.
 - Obtiene todos los canales disponibles en España (~143)
 - Genera un archivo M3U con URLs directas y EPG
 - GitHub Actions lo ejecuta cada 12 horas automáticamente
+
+
+saludos a FEDE
